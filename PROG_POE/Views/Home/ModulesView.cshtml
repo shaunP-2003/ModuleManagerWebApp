@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<PROG_POE.Models.Domain.ModuleViewM>
+
+<head>
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PROG_POE.styles.css" asp-append-version="true" />
+</head>
+
+<h2 class="text-center" style="margin-top:20px">Your Modules</h2>
+<br /><br />
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Module Code</th>
+                <th>Module Name</th>
+                <th>Credits</th>
+                <th>Class Hours/Week</th>
+                <th>Number of Weeks</th>
+                <th>Start Date</th>
+                <th>Self Study Hours Per week</th>
+                <th>Remaining Self Study Hours Per week</th>
+                
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var module in Model)
+            {
+                <tr>
+                    <td>@module.MCode</td>
+                    <td>@module.MName</td>
+                    <td>@module.Credits</td>
+                    <td>@module.ClassHoursPerWeek</td>
+                    <td>@module.NumberOfWeeks</td>
+                    <td>@module.StartDate.ToShortDateString()</td>
+                    <td>@module.SelfStudyHours</td>
+                    <td>@ViewBag.HoursDictionary[module.ModuleId]</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No modules found for the current user.</p>
+}

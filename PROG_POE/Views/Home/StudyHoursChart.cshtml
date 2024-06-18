@@ -1,0 +1,79 @@
+﻿@model IEnumerable<PROG_POE.Models.Domain.StudyHoursVM>
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        
+
+        <title>Study Chart</title>
+    </head>
+    <body>
+
+       
+
+        <h1 class="text-center" style="margin-top: 80px">Study Hours Chart</h1>
+        <canvas id="studyHoursChart" width="800" height="400"></canvas>
+
+        <!-- Move your script to the end of the body -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+        window.onload = function () {
+            //The following method was taken from stackoverflow
+            // Author: halfer
+            //Link: https://stackoverflow.com/questions/56228218/change-viewbag-to-json-array-to-plot-barchart-in-net-mvc
+            // Changing viewbag to json array
+            
+            var modules = @Html.Raw(Json.Serialize(ViewBag.Modules));
+            var totalHoursDictionary = @Html.Raw(Json.Serialize(ViewBag.TotalHoursDictionary));
+
+            console.log('Modules:', modules);
+            console.log('Total Hours Dictionary:', totalHoursDictionary);
+            //The following method was taken from stackoverflow
+            // Author: Jan Pokorný
+            //Link: https://stackoverflow.com/questions/66818305/map-through-a-json-file-to-get-an-array-with-just-the-values-i-need
+            // Map through json array to get module information and object for totalhoursdictionary 
+            
+            var labels = modules.map(module => module.mName);
+            console.log('Intermediate Labels:', labels);
+
+            var moduleIds = modules.map(module => module.moduleId);
+            console.log('Module IDs:', moduleIds);
+
+            var actualHoursData = moduleIds.map(moduleId => totalHoursDictionary[moduleId]);
+            console.log('Intermediate Actual Hours Data:', actualHoursData);
+
+            var idealHoursData = modules.map(module => module.selfStudyHours);
+            console.log('Intermediate Ideal Hours Data:', idealHoursData);
+
+            var ctx = document.getElementById('studyHoursChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Actual Hours Spent',
+                        data: actualHoursData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Ideal Hours',
+                        data: idealHoursData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        };
+        </script>
+    </body>
+</html>

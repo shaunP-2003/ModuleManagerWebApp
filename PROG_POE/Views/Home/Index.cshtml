@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<head>
+     <style>
+        /* Custom orange button */
+        .btn-blue {
+            background-color:  #3498db; /* This is a shade of orange */
+            color: #fff; /* Text color (white) */
+            border-color: #3498db; /* Border color */
+        }
+
+            /* Hover state for the button */
+            .btn-blue:hover {
+                background-color: #1f6da8; /* A slightly darker shade on hover */
+                border-color: #1f6da8;
+            }
+
+
+    </style>
+    
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center" style="margin-top: 90px">Welcome to Module Manager Web App</h2><br /><br />
+    <div class="row" style="margin-top:30px">
+        <div class="col-md-4 mb-3" style="margin-left:190px">
+            <a asp-controller="Home" asp-action="ModulesView" class="btn btn-blue btn-lg btn-block w-100">
+                View My Modules
+            </a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a asp-controller="Home" asp-action="StudyHoursChart" class="btn btn-blue btn-lg btn-block w-100">
+                View StudyHours Graph
+            </a>
+        </div>
+       
+    </div>
+</div>
+</body>

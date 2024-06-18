@@ -1,0 +1,78 @@
+﻿@model PROG_POE.Models.Domain.StudyHoursVM
+
+<head>
+    <style>
+    .module-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Adjust the gap as needed */
+        margin-top:30px;
+    }
+
+    .module-box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 230px; /* Adjust the width as needed */
+        box-sizing: border-box;
+    }
+        /* Custom orange button */
+        .btn-blue {
+            background-color: #3498db; /* This is a shade of orange */
+            color: #fff; /* Text color (white) */
+            border-color: #3498db; /* Border color */
+        }
+
+            /* Hover state for the button */
+            .btn-blue:hover {
+                background-color: #1f6da8; /* A slightly darker shade on hover */
+                border-color: #1f6da8;
+            }
+
+</style>
+
+</head>
+@*//The following Viewbag method was taken from Stackoverflow
+                // Author: jrb
+                //Link:https://stackoverflow.com/questions/13508961/how-to-loop-through-two-viewbag-items-on-view-pages-in-mvc-4-0
+*@
+<h1 class="text-center" style="margin-top:60px">Record Hours</h1>
+<form method="post" asp-action="RecordHours">
+    <div class="form-group">
+        <label for="moduleId">Select a Module:</label>
+        <select class="form-control" id="moduleId" asp-for="ModuleId">
+            <option value="">Select a Module</option>
+            @foreach (var module in ViewBag.Modules)
+            {
+                <option value="@module.ModuleId">@module.MName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" class="form-control" id="date" asp-for="Date" />
+    </div>
+
+    <div class="form-group">
+        <label for="hoursSpent">Hours Spent:</label>
+        <input type="number" class="form-control" id="hoursSpent" asp-for="HoursSpent" />
+    </div>
+
+    <!-- Add other form fields as needed -->
+
+    <button type="submit" class="btn btn-blue" style="margin-top:10px">Record Hours</button>
+</form>
+
+  
+
+    <h4 class="text-center" style="margin-top:30px"> Remaining Hours Left </h4>
+    <div class="module-container">
+        @foreach (var module in ViewBag.Modules)
+        {
+                <div class="module-box">
+                    <h5>@module.MName</h5>
+                    <p>Total Hours: @ViewBag.HoursDictionary[module.ModuleId].Item1</p>
+                    <p>Remaining Self-Study Hours: @ViewBag.HoursDictionary[module.ModuleId].Item2</p>
+                </div>
+        }
+    </div>

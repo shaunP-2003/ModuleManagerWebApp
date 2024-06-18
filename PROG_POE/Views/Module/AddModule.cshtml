@@ -1,0 +1,68 @@
+﻿@model PROG_POE.Models.Domain.ModuleViewM
+
+<head>
+     <style>
+        /* Custom orange button */
+        .btn-blue {
+            background-color:  #3498db; /* This is a shade of orange */
+            color: #fff; /* Text color (white) */
+            border-color: #3498db; /* Border color */
+            margin-top:10px;
+        }
+
+            /* Hover state for the button */
+            .btn-blue:hover {
+                background-color: #1f6da8; /* A slightly darker shade on hover */
+                border-color: #1f6da8;
+            }
+
+
+    </style>
+    
+</head>
+
+
+
+<div class="container form-container" style="margin-top:40px">
+    <h2 class="text-center" style="margin-bottom:30px">Add Your Module</h2>
+    <form method="post" action="AddModule">
+        <div class="form-group">
+            <label for="MCode">Module Code:</label>
+            <input type="text" class="form-control" id="MCode" asp-for="MCode" required>
+        </div>
+
+        <div class="form-group">
+            <label for="MName">Module Name:</label>
+            <input type="text" class="form-control" id="MName" asp-for="MName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Credits">Credits:</label>
+            <input type="text" class="form-control" id="Credits" asp-for="Credits" required>
+        </div>
+
+        <div class="form-group">
+            <label for="ClassHoursPerWeek">Class Hours Per Week:</label>
+            <input type="text" class="form-control" id="ClassHoursPerWeek" asp-for="ClassHoursPerWeek" required>
+        </div>
+
+        <div class="form-group">
+            <label for="NumberOfWeeks">Number of Weeks:</label>
+            <input type="text" class="form-control" id="NumberOfWeeks" asp-for="NumberOfWeeks" required>
+        </div>
+
+        <div class="form-group">
+            <label for="StartDate">Start Date:</label>
+            <input type="date" class="form-control" id="StartDate" asp-for="StartDate" required>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-blue">Submit</button>
+    </form>
+</div>
+<script>
+    var alertMessage = '@TempData["AlertMessage"]';
+    if (alertMessage) {
+        alert(alertMessage);
+    }
+</script>
